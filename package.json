@@ -1,0 +1,27 @@
+{
+  "name": "TrueRandomBot-pubuim",
+  "version": "0.1.1",
+  "description": "A true random number bot for pubuim service.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imdjh/trbot-pubuim.git"
+  },
+  "keywords": [
+    "bot",
+    "pubuim"
+  ],
+  "author": "djh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/imdjh/trbot-pubuim/issues"
+  },
+  "homepage": "https://github.com/imdjh/trbot-pubuim",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3"
+  }
+}
