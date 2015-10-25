@@ -1,6 +1,6 @@
-#!/bin/env node
+#!/usr/bin/env node
 // usage: [VERBOSE=yes] trbot-pubuim
-// home: https://github.com/imdjh/trbot-pubuim
+// home:  https://github.com/imdjh/trbot-pubuim
 
 
 var express = require('express');

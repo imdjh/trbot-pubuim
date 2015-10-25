@@ -1,6 +1,6 @@
 {
   "name": "trbot-pubuim",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A true random number bot for pubuim service.",
   "dependencies": {
     "body-parser": "^1.14.1",
