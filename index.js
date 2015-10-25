@@ -6,13 +6,14 @@ var PORT = 8079;  // Adjust of `8079' should also done with Dockerfile
 var POOL_TRUEDICE = [];
 var VERBOSE = process.env.VERBOSE == 'yes';  // Only get verbose at ENV specified
 var SEQDELAY_DICEPOOL = process.env.PULL_DELAY || 5000;
-var CHECKID = process.env.CHECKID || console.error("No CHECKID ENV found, Server would be volurable!");
+var CHECKID = process.env.CHECKID || console.error("No CHECKID ENV found, Server would be vulnerable!");
 var NAME = process.env.BOT_NAME || 'True Random Dice';
-var AVATOR = process.env.BOT_AVATOR || 'https://www.baidu.com/img/baidu_jgylogo3.gif';  // TODO: no baidu logo
+var AVATAR = process.env.BOT_AVATAR || 'http://i11.tietuku.com/8fb0c54de77df11a.png';  // hacker emblem
 var MSGPREFIX = process.env.BOT_MSGPREFIX || 'I choose ';
 var TR_START = process.env.TR_START || 1;
 var TR_END = process.env.TR_END || 6;
 var TR_BUFFER = process.env.TR_BUFFER || 50;
+var TR_BUFFER_CHECKLENGTH = process.env.TR_BUFFER_CHECKLENGTH || 5;
 var URL_TRUEDICE = 'https://www.random.org/integers/?num=' + TR_BUFFER + '&min=' + TR_START +
                    '&max=' + TR_END + '&col=1&base=10&format=plain&rnd=new';
 
@@ -34,35 +35,36 @@ app.listen(PORT, function () {
 	}
 })();  // Init at startup
 
-app.post('/pubuim', function (req, res) {
+app.post('/', function (req, res) {
     var id = req.body.team_id,
         keyword = req.body.trigger_word;
     if (CHECKID && id !== CHECKID) {
         die(res);
-    }
-    if (! CHECKID) console.error("Unknown requests from ID: " + id);  // log error without CHECKID ENV on each request
-    if (keyword) {
-        switch(keyword.toLowerCase()) {
-            case 'roll':
-                var t = rollDice(res);
-                var response = wrappedJSON(t, NAME, AVATOR);
-                res.json(response);
-                break;
-            default:
-                die(res, keyword);
-        }
+    } else {
+        if (! CHECKID) console.error("Unchecked requests from ID: " + id);  // log error without CHECKID per request
+        if (keyword) {
+            switch(keyword.toLowerCase()) {
+                case 'roll':
+                    var t = rollDice(res);
+                    var response = wrappedJSON(t, NAME, AVATAR);
+                    res.json(response);
+                    break;
+                default:
+                    die(res, keyword);
+            }
+        } else die(res, "nothing-at-all");  // die alone with nothing
     }
 });
 
 function die(res, msg) {  // die with optional message
     if (! res) console.error("Could not initlized, server blocked from random.org.");
-    if (msg) res.send("What's " + msg + "? I don't get it.");
-    res.send('Bad token!');
+    else if (msg) res.send("What's " + msg + "? I don't get it :O");
+    else res.send('Bad token!');
 }
 
 function checkDicePool (res) {  // return true if Pool still full
     var that = this;
-    if (POOL_TRUEDICE.length < 5) {
+    if (POOL_TRUEDICE.length < TR_BUFFER_CHECKLENGTH) {
         https.get(URL_TRUEDICE, function getTRN_Dice (r) {
             if (r.statusCode == 503) {
                     die(that.res, "Randomness has been ran out!");  // that.res would be null
