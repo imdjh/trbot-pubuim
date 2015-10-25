@@ -1,8 +1,15 @@
 {
-  "name": "TrueRandomBot-pubuim",
-  "version": "0.1.1",
+  "name": "trbot-pubuim",
+  "version": "0.1.2",
   "description": "A true random number bot for pubuim service.",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3"
+  },
   "main": "index.js",
+  "bin": {
+      "trbot-pubuim": "index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,9 +26,5 @@
   "bugs": {
     "url": "https://github.com/imdjh/trbot-pubuim/issues"
   },
-  "homepage": "https://github.com/imdjh/trbot-pubuim",
-  "dependencies": {
-    "body-parser": "^1.14.1",
-    "express": "^4.13.3"
-  }
+  "homepage": "https://github.com/imdjh/trbot-pubuim"
 }

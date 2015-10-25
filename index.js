@@ -1,3 +1,8 @@
+#!/bin/env node
+// usage: [VERBOSE=yes] trbot-pubuim
+// home: https://github.com/imdjh/trbot-pubuim
+
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var https = require('https');
